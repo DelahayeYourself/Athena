@@ -1,0 +1,23 @@
+{
+    "name": "shadowhand/email",
+    "type": "kohana-module",
+    "description": "Email helper for Kohana, uses Swiftmailer",
+    "keywords": ["kohana", "email", "helper", "module", "library", "swiftmailer"],
+    "homepage": "http://github.com/shadowhand/email",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Woody Gilk",
+            "email": "woody.gilk@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.2.4",
+        "swiftmailer/swiftmailer": "4.3.*"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-3.3/develop": "3.3.x-dev"
+        }
+    }
+}
