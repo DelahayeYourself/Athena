@@ -141,6 +141,7 @@ Kohana::modules(array(
     'mysqli' => MODPATH . 'mysqli', //MySQLi support
     'logreader' => MODPATH . 'logreader', //Basic log reader
     'email' => MODPATH . 'email', //SwiftMailer Support
+    'parsedown' => MODPATH . 'parsedown', //Parsedown Support
     'developerbar' => MODPATH . 'developerbar', //DeveloperBar
 ));
 

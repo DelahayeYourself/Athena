@@ -11,6 +11,30 @@ defined('SYSPATH') or die('No direct script access.');
 class Model_Module extends ORM {
 
     /**
+     * Description of the module parsed on the load of the object with the parsedown lib,
+     * Desc is stored as Markdown in database
+     * 
+     * @var String
+     */
+    public $parsed_desc;
+
+    /**
+     * __construct
+     * 
+     * Override default behaviour
+     * For adding the parser of the description in the parsed_desc attributes
+     * If the desc attribute is not empty 
+     * 
+     * @param type $id
+     */
+    public function __construct($id = NULL) {
+        parent::__construct($id);
+        if ($this->desc != NULL) {
+            $this->parsed_desc = Parsedown::instance()->parse($this->desc);
+        }
+    }
+
+    /**
      * Belongs to entity for Model_Module
      * 
      * @var array
@@ -25,6 +49,16 @@ class Model_Module extends ORM {
      * @var array
      */
     protected $_load_with = array('periode');
+
+    /**
+     * get
+     * 
+     * Return the column specified with the column param,
+     * Override the get method from ORM for parsing the desc
+     * 
+     * @param String $column
+     * @return various
+     */
 
     /**
      * rules

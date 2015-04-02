@@ -32,7 +32,7 @@
                         <tr>
                             <td><?php echo $module->id; ?></td>
                             <td><?php echo $module->name; ?></td>
-                            <td><?php echo $module->desc; ?></td>
+                            <td><?php echo $module->parsed_desc; ?></td>
                             <td><?php echo $module->periode->name; ?></td>
                             <td>
 
