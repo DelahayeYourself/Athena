@@ -1,7 +1,7 @@
 <div class="row">
     <article class="col-md-12">
         <div class="page-header">
-            <h1>Modules</h1>       
+            <h1>Module</h1>       
         </div>
 
         <?php foreach (Notices::get() as $notice): ?>
