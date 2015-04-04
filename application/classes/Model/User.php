@@ -17,6 +17,17 @@ class Model_User extends Model_Auth_User {
      */
     public $isConfirmed = false;
     
+    
+
+    /**
+     * Belongs to entity for Model_User
+     * 
+     * @var array
+     */
+    protected $_belongs_to = array(
+        'parcour' => array('model' => 'Parcour', 'foreign_key' => 'parcour_id'),
+    );
+    
     /**
      * __construct
      * 

@@ -28,13 +28,12 @@
                                 <a href="<?php echo Route::get('modules')->uri(array('action' => 'form', 'id' => $module->id)); ?>"class="btn btn-default btn-xs" > Editer</a>
                             </div>
                             <div class="btn-group btn-group-xs pull-right">
-                                <!--<a class="btn btn-primary" href="#">Report this question</a>-->
                             </div>
 
                         </div>
                     </div>
-                <?php endforeach; ?>
-            </div>
+                </div>
+            <?php endforeach; ?>
         </div>
     </div>
 
