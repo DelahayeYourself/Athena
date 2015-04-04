@@ -51,16 +51,6 @@ class Model_Module extends ORM {
     protected $_load_with = array('periode');
 
     /**
-     * get
-     * 
-     * Return the column specified with the column param,
-     * Override the get method from ORM for parsing the desc
-     * 
-     * @param String $column
-     * @return various
-     */
-
-    /**
      * rules
      * 
      * return array rules for this model
