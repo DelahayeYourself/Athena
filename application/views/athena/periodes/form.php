@@ -1,15 +1,6 @@
 <div class="row">
     <article class="col-md-12">
 
-        <div class="page-header">
-            <h1>
-                <?php if ($periode->id != null) : ?>
-                    Mettre à jour la période &laquo; <?php echo $periode->name; ?> &raquo;
-                <?php else : ?>
-                    Ajouter une nouvelle période
-                <?php endif; ?>
-            </h1>
-        </div>
 
         <div class="well">
             <form method="POST" class="form">

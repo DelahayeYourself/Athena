@@ -1,16 +1,6 @@
 <div class="row">
     <article class="col-md-12">
-        <div class="page-header">
-            <h1>Utilisateurs <small>Les comptes utilisateurs</small></h1>
-        </div>
-
-        <?php foreach (Notices::get() as $notice): ?>
-            <div class="alert alert-<?php echo $notice['type']; ?>">
-                <p><?php echo $notice['key']; ?></p>
-            </div>
-        <?php endforeach; ?>
-
-
+        
         <div class="well">
             <div>
                 <a class="btn btn-primary" href="<?php echo Route::get('users')->uri(array('action' => 'add')); ?>">Ajouter un utilisateur</a>

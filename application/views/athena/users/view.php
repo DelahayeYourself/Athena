@@ -1,8 +1,5 @@
 <div class="row">
     <article class="col-md-12">
-        <div class="page-header">
-            <h1>Profil de <?php echo $user->firstname; ?> <?php echo $user->name; ?></h1>
-        </div>
 
         <div class="well">
 

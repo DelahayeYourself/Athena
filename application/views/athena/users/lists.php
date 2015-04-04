@@ -1,10 +1,5 @@
 <div class="row">
     <article class="col-md-12">
-        <div class="page-header">
-            <h1><?php echo __($role_name . 's'); ?> <small>Les comptes <?php echo __($role_name . 's'); ?></small></h1>
-        </div>
-
-        <?php echo View::factory('athena/general/notices')->render(); ?>
 
         <div class="well">
             <?php if (count($users) == 0) : ?>

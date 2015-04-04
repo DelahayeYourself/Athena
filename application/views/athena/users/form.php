@@ -1,16 +1,6 @@
 <div class="row">
     <article class="col-md-12">
 
-        <div class="page-header">
-            <h1>
-                <?php if ($user->id != null) : ?>
-                    Mettre à jour le profil de <?php echo $user->firstname; ?> <?php echo $user->name; ?>
-                <?php else : ?>
-                    Ajouter un nouvel utilisateur
-                <?php endif; ?>
-            </h1>
-        </div>
-
 
         <div class="well">
             <form method="POST" class="form">

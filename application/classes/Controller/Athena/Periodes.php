@@ -11,6 +11,13 @@ defined('SYSPATH') or die('No direct script access.');
 class Controller_Athena_Periodes extends Controller_Athena_Athena {
 
     /**
+     * Variable used for page title;
+     * 
+     * @var String
+     */
+    public $page_title = 'Periodes';
+
+    /**
      * Array association for actions/roles
      * 
      * @var array
@@ -38,10 +45,16 @@ class Controller_Athena_Periodes extends Controller_Athena_Athena {
                 ->offset($pagination->offset)
                 ->find_all();
 
-        $this->_template_content(View::factory('athena/periodes/index')
-                        ->bind('periodes', $periodes)
-                        ->bind('pagination', $pagination)
-                        ->render());
+        $content = View::factory('athena/periodes/index')
+                ->bind('periodes', $periodes)
+                ->bind('pagination', $pagination)
+                ->render();
+
+        $this->_template_content(
+                View::factory('athena/_shared/master_admin')
+                        ->bind('title', $this->page_title)
+                        ->bind('content', $content)
+        );
     }
 
     /**
@@ -70,11 +83,15 @@ class Controller_Athena_Periodes extends Controller_Athena_Athena {
             }
         }
 
+        $content = View::factory('athena/periodes/form')
+                ->bind('periode', $periode)
+                ->bind('errors', $errors)
+                ->render();
+
         $this->_template_content(
-                View::factory('athena/periodes/form')
-                        ->bind('periode', $periode)
-                        ->bind('errors', $errors)
-                        ->render()
+                View::factory('athena/_shared/master_admin')
+                        ->bind('title', $this->page_title)
+                        ->bind('content', $content)
         );
     }
 

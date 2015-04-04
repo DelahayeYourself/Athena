@@ -11,6 +11,13 @@ defined('SYSPATH') or die('No direct script access.');
 class Controller_Athena_Specialites extends Controller_Athena_Athena {
 
     /**
+     * Variable used for page title;
+     * 
+     * @var String
+     */
+    public $page_title = 'Specialites';
+
+    /**
      * Array association for actions/roles
      * @var array
      */
@@ -37,10 +44,16 @@ class Controller_Athena_Specialites extends Controller_Athena_Athena {
                 ->offset($pagination->offset)
                 ->find_all();
 
-        $this->_template_content(View::factory('athena/specialites/index')
-                        ->bind('specialites', $specialites)
-                        ->bind('pagination', $pagination)
-                        ->render());
+        $content = View::factory('athena/specialites/index')
+                ->bind('specialites', $specialites)
+                ->bind('pagination', $pagination)
+                ->render();
+
+        $this->_template_content(
+                View::factory('athena/_shared/master_admin')
+                        ->bind('title', $this->page_title)
+                        ->bind('content', $content)
+        );
     }
 
     /**
@@ -75,10 +88,17 @@ class Controller_Athena_Specialites extends Controller_Athena_Athena {
         }
 
 
-        $this->_template_content(View::factory('athena/specialites/form')
-                        ->bind('specialite', $specialite)
-                        ->bind('mentions', $mentions)
-                        ->bind('errors', $errors)->render());
+        $content = View::factory('athena/specialites/form')
+                ->bind('specialite', $specialite)
+                ->bind('mentions', $mentions)
+                ->bind('errors', $errors)
+                ->render();
+
+        $this->_template_content(
+                View::factory('athena/_shared/master_admin')
+                        ->bind('title', $this->page_title)
+                        ->bind('content', $content)
+        );
     }
 
 }

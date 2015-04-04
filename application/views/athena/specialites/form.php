@@ -1,16 +1,6 @@
 <div class="row">
     <article class="col-md-12">
 
-        <div class="page-header">
-            <h1>
-                <?php if ($specialite->id != null) : ?>
-                    Mettre à jour la spécialité &laquo; <?php echo $specialite->name; ?> &raquo;
-                <?php else : ?>
-                    Ajouter une nouvelle spécialité
-                <?php endif; ?>
-            </h1>
-        </div>
-
         <div class="well">
             <form method="POST" class="form">
                 <div class="form-group">

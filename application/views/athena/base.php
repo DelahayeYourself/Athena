@@ -12,7 +12,7 @@
         <title><?php echo APP_NAME; ?></title>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="public/css/bootstrap-datetimepicker.min.css" />
         <link rel="stylesheet" href="public/css/bootstrap-markdown.min.css" />
@@ -24,52 +24,21 @@
             .btn{
                 cursor: pointer;
             }
+            .dropdown .fa{
+                width: 18px;
+            }
+            .nav-stacked.well .dropdown-header{
+                padding-left: 0;
+                font-size: 13px;
+                font-weight: bold;
+            }
         </style>
 
     </head>
 
     <body>
-
-        <!-- Fixed masthead -->
-        <nav class="navbar navbar-masthead navbar-default navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href=""><?php echo APP_NAME; ?></a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Configuration <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li class="dropdown-header">Utilisateurs</li>
-                                <li><a href="<?php echo Route::get('users')->uri(array('action' => 'lists', 'id' => 'etudiant')); ?>">Étudiants</a></li>
-                                <li><a href="<?php echo Route::get('users')->uri(array('action' => 'lists', 'id' => 'admin')); ?>">Administrateurs</a></li>
-                                <li><a href="<?php echo Route::get('users')->uri(); ?>">Utilisateurs (For debug purpose)</a></li>
-                                <li class="dropdown-header">Paramètres</li>
-                                <li><a href="<?php echo Route::get('periodes')->uri(); ?>">Periodes</a></li>
-                                <li><a href="<?php echo Route::get('mentions')->uri(); ?>">Mentions</a></li>
-                                <li><a href="<?php echo Route::get('specialites')->uri(); ?>">Spécialités</a></li>
-                                <li><a href="<?php echo Route::get('parcours')->uri(); ?>">Parcours</a></li>
-                                <li><a href="<?php echo Route::get('modules')->uri(); ?>">Modules</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <?php if (Auth::instance()->logged_in()): ?>
-                            <li class="active"><a href="">Salutations <?php echo Auth::instance()->get_user()->firstname; ?></a></li>
-                            <li><a href="<?php echo Route::get('account')->uri(array('action' => 'logout')); ?>">Quitter</a></li>
-                        <?php endif; ?>
-                    </ul>
-                </div><!--/.nav-collapse -->
-            </div>
-        </nav>
+        
+        <?php echo View::factory('athena/_shared/navbar')->render(); ?>
 
         <div class="container">
 

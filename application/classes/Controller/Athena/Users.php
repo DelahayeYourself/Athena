@@ -11,6 +11,13 @@ defined('SYSPATH') or die('No direct script access.');
 class Controller_Athena_Users extends Controller_Athena_Athena {
 
     /**
+     * Variable used for page title;
+     * 
+     * @var String
+     */
+    public $page_title = 'Users';
+
+    /**
      * Array Association for actions/roles
      * @var array
      */
@@ -52,12 +59,18 @@ class Controller_Athena_Users extends Controller_Athena_Athena {
                 ->offset($pagination->offset)
                 ->find_all();
 
+        $content = View::factory('athena/users/lists')
+                ->bind('role_name', $role_name)
+                ->bind('users', $users)
+                ->bind('pagination', $pagination)
+                ->render();
+
+        $this->page_title = 'Users.lists.' . $role_name;
+        
         $this->_template_content(
-                View::factory('athena/users/lists')
-                        ->bind('role_name', $role_name)
-                        ->bind('users', $users)
-                        ->bind('pagination', $pagination)
-                        ->render()
+                View::factory('athena/_shared/master_admin')
+                        ->bind('title', $this->page_title)
+                        ->bind('content', $content)
         );
     }
 
@@ -85,11 +98,15 @@ class Controller_Athena_Users extends Controller_Athena_Athena {
                 ->offset($pagination->offset)
                 ->find_all();
 
+        $content = View::factory('athena/users/index')
+                ->bind('users', $users)
+                ->bind('pagination', $pagination)
+                ->render();
+
         $this->_template_content(
-                View::factory('athena/users/index')
-                        ->bind('users', $users)
-                        ->bind('pagination', $pagination)
-                        ->render()
+                View::factory('athena/_shared/master_admin')
+                        ->bind('title', $this->page_title)
+                        ->bind('content', $content)
         );
     }
 
@@ -126,13 +143,17 @@ class Controller_Athena_Users extends Controller_Athena_Athena {
             }
         }
 
+        $content = View::factory('athena/users/form')
+                ->bind('user', $user)
+                ->bind('rolesUser', $rolesUser)
+                ->bind('roles', $roles)
+                ->bind('errors', $errors)
+                ->render();
+
         $this->_template_content(
-                View::factory('athena/users/form')
-                        ->bind('user', $user)
-                        ->bind('rolesUser', $rolesUser)
-                        ->bind('roles', $roles)
-                        ->bind('errors', $errors)
-                        ->render()
+                View::factory('athena/_shared/master_admin')
+                        ->bind('title', $this->page_title)
+                        ->bind('content', $content)
         );
     }
 
@@ -142,10 +163,15 @@ class Controller_Athena_Users extends Controller_Athena_Athena {
     public function action_view() {
         $id = $this->request->param('id');
         $user = ORM::factory('User', $id);
+
+        $content = View::factory('athena/users/view')
+                ->bind('user', $user)
+                ->render();
+
         $this->_template_content(
-                View::factory('athena/users/view')
-                        ->bind('user', $user)
-                        ->render()
+                View::factory('athena/_shared/master_admin')
+                        ->bind('title', $this->page_title)
+                        ->bind('content', $content)
         );
     }
 
@@ -229,13 +255,17 @@ class Controller_Athena_Users extends Controller_Athena_Athena {
             }
         }
 
+        $content = View::factory('athena/users/form')
+                ->bind('user', $user)
+                ->bind('rolesUser', $rolesUser)
+                ->bind('roles', $roles)
+                ->bind('errors', $errors)
+                ->render();
+
         $this->_template_content(
-                View::factory('athena/users/form')
-                        ->bind('user', $user)
-                        ->bind('rolesUser', $rolesUser)
-                        ->bind('roles', $roles)
-                        ->bind('errors', $errors)
-                        ->render()
+                View::factory('athena/_shared/master_admin')
+                        ->bind('title', $this->page_title)
+                        ->bind('content', $content)
         );
     }
 

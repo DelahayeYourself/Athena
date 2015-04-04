@@ -1,16 +1,6 @@
 <div class="row">
     <article class="col-md-12">
 
-        <div class="page-header">
-            <h1>
-                <?php if ($parcour->id != null) : ?>
-                    Mettre à jour le parcours &laquo; <?php echo $parcour->name; ?> &raquo;
-                <?php else : ?>
-                    Ajouter un nouveau parcours
-                <?php endif; ?>
-            </h1>
-        </div>
-
         <div class="well">
             <form method="POST" class="form">
                 <div class="form-group">

@@ -21,6 +21,13 @@ class Controller_Athena_Athena extends Controller_Template {
     public $assert_auth = TRUE;
 
     /**
+     * Variable used for handling page title
+     * 
+     * @var String
+     */
+    public $page_title = 'Athena';
+    
+    /**
      * Default array for storing authorized action/role(s) 
      * 
      * @var array 
@@ -36,11 +43,16 @@ class Controller_Athena_Athena extends Controller_Template {
     /**
      * before
      * 
-     * Override before method for handling auth and access authorized
+     * Override before method for handling auth and access authorized,
+     * And some page title
      */
     public function before() {
         parent::before();
         $this->_user_auth();
+        $action_name = $this->request->action();
+        $id_param = ($this->request->param('id') != null) ? true : false;
+        $this->page_title = ($action_name != null) ? $this->page_title  . '.' . $action_name : $this->page_title;
+        $this->page_title = ($id_param) ? $this->page_title . '.param' : $this->page_title;
     }
 
     /**

@@ -2,7 +2,6 @@
 
 defined('SYSPATH') or die('No direct script access.');
 
-
 /**
  * Controller_Athena_Modules
  * 
@@ -10,6 +9,13 @@ defined('SYSPATH') or die('No direct script access.');
  * @author Samy Delahaye <samy.delahaye@gmail.com>
  */
 class Controller_Athena_Modules extends Controller_Athena_Athena {
+
+    /**
+     * Variable used for page title;
+     * 
+     * @var String
+     */
+    public $page_title = 'Modules';
 
     /**
      * Association for action/role(s)
@@ -38,10 +44,15 @@ class Controller_Athena_Modules extends Controller_Athena_Athena {
                 ->offset($pagination->offset)
                 ->find_all();
 
-        $this->_template_content(View::factory('athena/modules/index')
-                        ->bind('modules', $modules)
-                        ->bind('pagination', $pagination)
-                        ->render());
+        $content = View::factory('athena/modules/index')
+                ->bind('modules', $modules)
+                ->bind('pagination', $pagination)
+                ->render();
+        $this->_template_content(
+                View::factory('athena/_shared/master_admin')
+                        ->bind('title', $this->page_title)
+                        ->bind('content', $content)
+        );
     }
 
     /**
@@ -73,12 +84,16 @@ class Controller_Athena_Modules extends Controller_Athena_Athena {
 
         $periodes = ORM::factory('Periode')->order_by('name')->find_all()->as_array('id', 'name');
 
+        $content = View::factory('athena/modules/form')
+                ->bind('module', $module)
+                ->bind('periodes', $periodes)
+                ->bind('errors', $errors)
+                ->render();
+
         $this->_template_content(
-                View::factory('athena/modules/form')
-                        ->bind('module', $module)
-                        ->bind('periodes', $periodes)
-                        ->bind('errors', $errors)
-                        ->render()
+                View::factory('athena/_shared/master_admin')
+                        ->bind('title', $this->page_title)
+                        ->bind('content', $content)
         );
     }
 
