@@ -27,6 +27,16 @@ class Model_Parcour extends ORM {
     protected $_load_with = array('specialite');
 
     /**
+     * Override __toString method,
+     * For userfriendly output
+     * 
+     * @return String
+     */
+    public function __toString() {
+        return $this->name;
+    }
+    
+    /**
      * rules
      * 
      * return array rules for this model

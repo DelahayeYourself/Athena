@@ -236,6 +236,12 @@ Route::set('modules', 'modules(/<action>(/<id>))')
             'directory' => 'athena',
             'controller' => 'modules',
         ));
+//Groupes administration route
+Route::set('groupes', 'groupes(/<action>(/<id>))')
+        ->defaults(array(
+            'directory' => 'athena',
+            'controller' => 'groupes',
+        ));
 //Default route redirect to login action
 Route::set('default', '(<controller>(/<action>(/<id>)))')
         ->defaults(array(

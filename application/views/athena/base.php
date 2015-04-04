@@ -24,8 +24,8 @@
             .btn{
                 cursor: pointer;
             }
-            .dropdown .fa{
-                width: 18px;
+            .dropdown .fa, .nav-stacked.well .fa{
+                width: 19px;
             }
             .nav-stacked.well .dropdown-header{
                 padding-left: 0;

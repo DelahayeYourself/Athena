@@ -31,4 +31,5 @@ return array
     'Modules.form.param' => 'Mettre à jour le module',
     'Users.lists.admin' => 'Administrateurs <small>Les comptes administrateurs</small>',
     'Users.lists.etudiant' => 'Étudiants <small>Les comptes étudiants</small>',
+    'Groupes.index' => 'Groupes',
 );

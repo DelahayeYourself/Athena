@@ -33,6 +33,17 @@ class Model_Module extends ORM {
             $this->parsed_desc = Parsedown::instance()->parse($this->desc);
         }
     }
+    
+    /**
+     * __toString
+     * 
+     * Override toString
+     * 
+     * @return String
+     */
+    public function __toString() {
+        return $this->name;
+    }
 
     /**
      * Belongs to entity for Model_Module
