@@ -11,6 +11,25 @@ defined('SYSPATH') or die('No direct script access.');
 class Model_User extends Model_Auth_User {
 
     /**
+     * Flags that indicate if the user is confirmed or not
+     * 
+     * @var Boolean 
+     */
+    public $isConfirmed = false;
+    
+    /**
+     * __construct
+     * 
+     * Override construct method for adding simple check to test if user is confirmed
+     * 
+     * @param Model_User $id
+     */
+    public function __construct($id = NULL) {
+        parent::__construct($id);
+        $this->isConfirmed = $this->isConfirmed();
+    }
+    
+    /**
      * override method to return firstname and name of the instance model
      * 
      * @return String
@@ -26,8 +45,7 @@ class Model_User extends Model_Auth_User {
      * @return boolean
      */
     public function isConfirmed() {
-        $roles = $this->roles->as_array('id', 'name');
-        return in_array('login', $roles);
+        return $this->has('roles', ORM::factory('Role')->where('name', '=', 'login')->find());
     }
 
     /**

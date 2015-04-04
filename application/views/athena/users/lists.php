@@ -30,7 +30,7 @@
                             <td><?php echo $user->firstname; ?></td>
                             <td><?php echo $user->username; ?></td>
                             <td>
-                                <?php if ($user->isConfirmed()) : ?>
+                                <?php if ($user->isConfirmed) : ?>
                                     <div class="label label-success">
                                         Confirmé
                                     </div>
