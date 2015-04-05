@@ -10,8 +10,7 @@ return array
     'name' => array
         (
         'not_empty' => 'Nom non renseigné.',
-        'max_length' => 'Nom non-compris en 3 et 250 caractères.',
-        'min_length' => 'Nom non-compris en 3 et 250 caractères.',
+        'max_length' => 'Nom non-compris en :param2 et :param3 caractères.',
+        'min_length' => 'Nom non-compris en :param2 et :param3 caractères.',
     ),
 );
-?>

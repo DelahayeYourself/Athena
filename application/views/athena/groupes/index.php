@@ -25,7 +25,7 @@
                                 <dd><?php echo $groupe->module; ?></dd>
                                 <dt>Capacité</dt>
                                 <dd><?php echo $groupe->capacity; ?></dd>
-                                <dt>Groupes</dt>
+                                <dt>Parcours</dt>
                                 <dd><?php echo $groupe->str_groupes; ?></dd>
                                 <dt>Obligatoire</dt>
                                 <dd>

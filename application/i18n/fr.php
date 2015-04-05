@@ -6,6 +6,8 @@
  */
 return array
     (
+    'Yes' => 'Oui',
+    'No' => 'Non',
     'Previous' => 'Précédent',
     'Next' => 'Suivant',
     'First' => 'Début',
@@ -32,4 +34,6 @@ return array
     'Users.lists.admin' => 'Administrateurs <small>Les comptes administrateurs</small>',
     'Users.lists.etudiant' => 'Étudiants <small>Les comptes étudiants</small>',
     'Groupes.index' => 'Groupes',
+    'Groupes.form' => 'Ajouter un nouveau groupe',
+    'Groupes.form.param' => 'Mettre à jour le groupe'
 );

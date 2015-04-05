@@ -57,4 +57,62 @@ class Controller_Athena_Groupes extends Controller_Athena_Athena {
         );
     }
 
+    /**
+     * action_form
+     * 
+     * For handling create and edit 
+     * 
+     */
+    public function action_form() {
+        $id = $this->request->param('id');
+        $groupe = ORM::factory('Groupe', $id);
+        $opts_parcours = $groupe->parcours->find_all()->as_array('id', 'id');
+
+        if (HTTP_Request::POST == $this->request->method()) {
+            $groupe->values($this->request->post());
+            $opts_parcours = ($this->request->post('parcours') != null) ? $this->request->post('parcours') : array();
+            try {
+                $groupe->save();
+                $groupe->setParcours($opts_parcours);
+
+                if ($id == null) {
+                    Notices::add('success', '<b>Félicitations!</b> Groupe &laquo; ' . $groupe . ' &raquo; ajouté avec succès.');
+                } else {
+                    Notices::add('success', '<b>Félicitations!</b> Groupe &laquo; ' . $groupe . ' &raquo; mis à jour avec succès.');
+                }
+                $this->redirect(Route::get('groupes')->uri());
+            } catch (ORM_Validation_Exception $e) {
+                $errors = $e->errors('models');
+            }
+        }
+
+        $options_mandatory = array(0 => __('No'), 1 => __('Yes'));
+
+        $parcours = ORM::factory('Parcour')
+                ->order_by('name')
+                ->find_all()
+                ->as_array('id', 'name');
+
+        $modules = ORM::factory('Module')
+                ->order_by('name')
+                ->find_all()
+                ->as_array('id', 'name');
+
+        $content = View::factory('athena/groupes/form')
+                ->bind('groupe', $groupe)
+                ->bind('options_mandatory', $options_mandatory)
+                ->bind('modules', $modules)
+                ->bind('parcours', $parcours)
+                ->bind('opts_parcours', $opts_parcours)
+                ->bind('errors', $errors)
+                ->render();
+
+
+        $this->_template_content(
+                View::factory('athena/_shared/master_admin')
+                        ->bind('title', $this->page_title)
+                        ->bind('content', $content)
+        );
+    }
+
 }

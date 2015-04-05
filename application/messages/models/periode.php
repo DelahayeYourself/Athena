@@ -10,8 +10,8 @@ return array
     'name' => array
         (
         'not_empty' => 'Nom non renseigné.',
-        'max_length' => 'Nom non-compris en 3 et 50 caractères.',
-        'min_length' => 'Nom non-compris en 3 et 50 caractères.',
+        'max_length' => 'Nom non-compris en :param2 et :param3 caractères.',
+        'min_length' => 'Nom non-compris en :param2 et :param3 caractères.',
     ),
     
     'date_begin' => array(
@@ -32,4 +32,3 @@ return array
         'Model_Periode::IsSuperiorToBeginChoise' => 'Date de fin d\'inscription antérieur à celle de début.',
     ),
 );
-?>

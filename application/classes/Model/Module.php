@@ -42,7 +42,7 @@ class Model_Module extends ORM {
      * @return String
      */
     public function __toString() {
-        return $this->name;
+        return (string) $this->name;
     }
 
     /**

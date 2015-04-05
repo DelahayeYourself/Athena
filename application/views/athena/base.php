@@ -16,6 +16,8 @@
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="public/css/bootstrap-datetimepicker.min.css" />
         <link rel="stylesheet" href="public/css/bootstrap-markdown.min.css" />
+        <link rel="stylesheet" href="public/css/select2.css" />
+        <link rel="stylesheet" href="public/css/select2-bootstrap.css" />
         <style>
             body {
                 padding-top: 65px;
@@ -58,6 +60,9 @@
         <script src="public/js/datetimepicker.js"></script>
         <script src="public/js/bootstrap-markdown.js"></script>
         <script src="public/js/bootstrap-markdown.fr.js"></script>
+        <script src="public/js/bootstrap-markdown.fr.js"></script>
+        <script src="public/js/select2.min.js"></script>
+        <script src="public/js/select2_locale_fr.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
 
@@ -76,6 +81,7 @@
                 });
 
                 $(".markdown-editor").markdown({language: 'fr'})
+                $(".select2").select2();
             });
         </script>
     </body>
