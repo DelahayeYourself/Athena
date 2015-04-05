@@ -95,12 +95,23 @@ class Controller_Athena_Parcours extends Controller_Athena_Athena {
                 ->bind('specialites', $specialites)
                 ->bind('errors', $errors)
                 ->render();
-        
+
         $this->_template_content(
                 View::factory('athena/_shared/master_admin')
                         ->bind('title', $this->page_title)
                         ->bind('content', $content)
         );
+    }
+
+    /**
+     * action_delete
+     * 
+     * For handling safe remove
+     * 
+     * @todo: implements the method
+     */
+    public function action_remove() {
+        
     }
 
 }

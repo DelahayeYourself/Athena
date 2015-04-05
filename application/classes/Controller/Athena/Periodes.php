@@ -95,4 +95,15 @@ class Controller_Athena_Periodes extends Controller_Athena_Athena {
         );
     }
 
+    /**
+     * action_delete
+     * 
+     * For handling safe remove
+     * 
+     * @todo: implements the method
+     */
+    public function action_remove() {
+        
+    }
+
 }

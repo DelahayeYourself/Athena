@@ -16,7 +16,7 @@ class Controller_Athena_Mentions extends Controller_Athena_Athena {
      * @var String
      */
     public $page_title = 'Mentions';
-    
+
     /**
      * Array association for action/role(s)
      * @var array 
@@ -44,7 +44,7 @@ class Controller_Athena_Mentions extends Controller_Athena_Athena {
                 ->offset($pagination->offset)
                 ->find_all();
 
-        
+
         $content = View::factory('athena/mentions/index')
                 ->bind('mentions', $mentions)
                 ->bind('pagination', $pagination)
@@ -90,13 +90,24 @@ class Controller_Athena_Mentions extends Controller_Athena_Athena {
                 ->bind('mention', $mention)
                 ->bind('errors', $errors)
                 ->render();
-        
-        
+
+
         $this->_template_content(
                 View::factory('athena/_shared/master_admin')
                         ->bind('title', $this->page_title)
                         ->bind('content', $content)
         );
+    }
+
+    /**
+     * action_delete
+     * 
+     * For handling safe remove
+     * 
+     * @todo: implements the method
+     */
+    public function action_remove() {
+        
     }
 
 }
