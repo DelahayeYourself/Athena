@@ -52,6 +52,10 @@ class Model_Periode extends ORM {
                     array('Athena_Date::isValid', array(':value')),
                     array('Model_Periode::IsSuperiorToBeginChoise', array(':value', ':model')),
                 ),
+                'number_choise' => array(
+                    array('digit'),
+                    array('range', array(':value', 1, 255)),
+                ),
             );
         } else {
             return array();

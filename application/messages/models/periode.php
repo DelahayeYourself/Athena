@@ -31,4 +31,9 @@ return array
         'not_empty' => 'Date de fin d\'inscription non renseigné.',
         'Model_Periode::IsSuperiorToBeginChoise' => 'Date de fin d\'inscription antérieur à celle de début.',
     ),
+    'number_choise' => array
+        (
+        'digit' => 'Le nombre de choix doit être un nombre.',
+        'range' => 'Le nombre de choix doit être comprise entre :param2 et :param3',
+    ),
 );

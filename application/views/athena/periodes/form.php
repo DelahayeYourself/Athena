@@ -14,8 +14,13 @@
                     <label for="name" class="control-label">Nom</label>
 
                     <?php echo Athena_Form::renderErrorMessage($errors, 'name') ?>
-
                     <input id="name" type="text" name="name" placeholder="Nom" class="form-control" value="<?php echo $periode->name; ?>">
+                </div>
+
+                <div class="form-group <?php echo Athena_Form::hasError($errors, 'number_choise'); ?>">
+                    <label for="number_choise" class="control-label">Nombre de modules optionnelles à choisir</label>
+                    <?php echo Athena_Form::renderErrorMessage($errors, 'number_choise'); ?>
+                    <?php echo Form::input('number_choise', $periode->number_choise, array('id' => 'number_choise', 'Placeholder' => 'Nombre de choix', 'class' => 'form-control', 'type' => 'number')); ?>
                 </div>
 
                 <div class="form-group <?php echo Athena_Form::hasError($errors, 'date_begin') ?>">
