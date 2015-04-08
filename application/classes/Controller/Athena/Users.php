@@ -297,4 +297,26 @@ class Controller_Athena_Users extends Controller_Athena_Athena {
         $this->redirect(Route::get('users')->uri());
     }
 
+    /**
+     * action_toggleactive
+     * 
+     * Action that toggle the login role for the given user,
+     * To handle Activate or deactivate user account button
+     */
+    public function action_toggleactive() {
+        $id = $this->request->param('id');
+        $user = ORM::factory('User', $id);
+        $role = ORM::factory('Role')->where('name', '=', 'login')->find();
+
+        if ($user->has('roles', $role)) {
+            $user->remove('roles', $role);
+            Notices::add('success', '<b>Félicitations!</b> Compte utilisateur de &laquo; ' . $user . '&raquo; désactivé avec succès.');
+        } else {
+            $user->add('roles', $role);
+            Notices::add('success', '<b>Félicitations!</b> Compte utilisateur de &laquo; ' . $user . '&raquo; activé avec succès.');
+        }
+
+        $this->redirect($this->request->referrer());
+    }
+
 }

@@ -63,9 +63,9 @@
                             </div>
                             <div class="btn-group btn-group-xs pull-right">
                                 <?php if (!$user->isConfirmed) : ?>
-                                    <a class="btn btn-success" href="#">Activer le compte</a>
+                                    <a class="btn btn-success" href="<?php echo Route::get('users')->uri(array('action' => 'toggleactive', 'id' => $user->id)); ?>">Activer le compte</a>
                                 <?php else: ?>
-                                    <a class="btn btn-danger" href="#">Désactiver le compte</a>
+                                    <a class="btn btn-danger" href="<?php echo Route::get('users')->uri(array('action' => 'toggleactive', 'id' => $user->id)); ?>">Désactiver le compte</a>
                                 <?php endif; ?>
                             </div>
 
