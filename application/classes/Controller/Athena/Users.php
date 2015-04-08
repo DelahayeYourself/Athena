@@ -36,6 +36,7 @@ class Controller_Athena_Users extends Controller_Athena_Athena {
      */
     public function action_lists() {
         $role_name = $this->request->param('id');
+        $letter = $this->request->query('letter');
         if ($role_name == null) {
             $this->redirect(Route::get('dashboard')->uri());
         }
@@ -43,9 +44,8 @@ class Controller_Athena_Users extends Controller_Athena_Athena {
                 ->where('name', '=', $role_name)
                 ->find();
 
-        $users_count = $role
-                ->users
-                ->count_all();
+
+        $users_count = ($letter == null) ? $role->users->count_all() : $role->users->where('name', 'like', $letter . '%')->count_all();
 
         $pagination = Pagination::factory(array(
                     'items_per_page' => 10,
@@ -53,11 +53,16 @@ class Controller_Athena_Users extends Controller_Athena_Athena {
         ));
 
         $users = $role
-                ->users
-                ->order_by('name')
+                ->users;
+        if ($letter != null) {
+            $users = $users->where('name', 'like', $letter . '%');
+        }
+        $users = $users->order_by('name')
                 ->limit($pagination->items_per_page)
                 ->offset($pagination->offset)
                 ->find_all();
+
+        $arr_alphas = Athena_String::rangeFromAToZ();
 
         $content = View::factory('athena/users/lists')
                 ->bind('role_name', $role_name)
@@ -65,11 +70,15 @@ class Controller_Athena_Users extends Controller_Athena_Athena {
                 ->bind('pagination', $pagination)
                 ->render();
 
+        $pre_content = View::factory('athena/users/_list_alphas')
+                ->bind('alphas', $arr_alphas)
+                ->render();
         $this->page_title = 'Users.lists.' . $role_name;
-        
+
         $this->_template_content(
                 View::factory('athena/_shared/master_admin')
                         ->bind('title', $this->page_title)
+                        ->bind('pre_content', $pre_content)
                         ->bind('content', $content)
         );
     }

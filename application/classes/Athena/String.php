@@ -29,5 +29,16 @@ class Athena_String {
         }, $format
         );
     }
+    
+    /**
+     * rangeFromAToZ
+     * 
+     * Static methods for returning chars from A to Z in an array
+     * 
+     * @return array
+     */
+    public static function rangeFromAToZ(){
+        return range('A', 'Z');
+    }
 
 }

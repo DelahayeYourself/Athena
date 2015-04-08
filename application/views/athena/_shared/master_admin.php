@@ -10,6 +10,10 @@
             </div>
         <?php endforeach; ?>
 
+        <?php if (isset($pre_content)) : ?>
+            <?php echo $pre_content; ?>
+        <?php endif; ?>
+
         <div class="col-md-9">
             <?php echo $content; ?>
         </div>
