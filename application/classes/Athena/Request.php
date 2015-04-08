@@ -60,9 +60,24 @@ class Athena_Request {
      * @return boolean
      */
     public static function isCurrentControllerActionParam($controller_name, $action_name, $param_value) {
-        return strtolower(Request::initial()->current()->controller()) == strtolower($controller_name) &&
-                strtolower(Request::initial()->current()->action()) == strtolower($action_name) &&
+        return Athena_Request::isCurrentController($controller_name) &&
+                Athena_Request::isCurrentControllerAction($controller_name, $action_name) &&
                 strtolower(Request::initial()->current()->param('id')) == strtolower($param_value);
+    }
+
+    /**
+     * isCurrentControllerAction
+     * 
+     * Static method for checking if the current controller and action values
+     * Are the ones given by parameters
+     * 
+     * @param string $controller_name
+     * @param string $action_name
+     * @return boolean
+     */
+    public static function isCurrentControllerAction($controller_name, $action_name) {
+        return Athena_Request::isCurrentController($controller_name) &&
+                strtolower(Request::initial()->current()->action()) == strtolower($action_name);
     }
 
 }

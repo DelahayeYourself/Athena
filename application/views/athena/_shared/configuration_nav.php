@@ -7,6 +7,9 @@
 <li class="<?php if(Athena_Request::isCurrentControllerActionParam('users', 'lists', 'admin')) echo 'active'; ?>">
     <a href="<?php echo Route::get('users')->uri(array('action' => 'lists', 'id' => 'admin')); ?>"><i class="fa fa-user-secret"></i> Administrateurs</a>
 </li>
+<li class="<?php if(Athena_Request::isCurrentControllerAction('users', 'unlock')) echo 'active'; ?>">
+    <a href="<?php echo Route::get('users')->uri(array('action' => 'unlock')); ?>"><i class="fa fa-unlock"></i> Comptes non confirmé</a>
+</li>
 <li>
     <a href="<?php echo Route::get('users')->uri(); ?>">Utilisateurs (For debug purpose)</a>
 </li>

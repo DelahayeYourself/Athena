@@ -84,6 +84,51 @@ class Controller_Athena_Users extends Controller_Athena_Athena {
     }
 
     /**
+     * action_unlock
+     * 
+     * List all users that don't have permission to signin into the application
+     */
+    public function action_unlock() {
+
+        $active_users_ids = ORM::factory('Role')
+                ->where('name', '=', 'login')
+                ->find()
+                ->users
+                ->find_all()
+                ->as_array('id', 'id');
+
+        $users_count = ORM::factory('User')
+                ->where('parcour_id', '!=', null)
+                ->and_where('id', 'NOT IN', $active_users_ids)
+                ->count_all();
+
+        $pagination = Pagination::factory(array(
+                    'items_per_page' => 10,
+                    'total_items' => $users_count,
+        ));
+
+        $users = ORM::factory('User')
+                ->where('parcour_id', '!=', null)
+                ->and_where('id', 'NOT IN', $active_users_ids)
+                ->order_by('name')
+                ->limit($pagination->items_per_page)
+                ->offset($pagination->offset)
+                ->find_all();
+
+        $content = View::factory('athena/users/lists')
+                ->bind('role_name', $role_name)
+                ->bind('users', $users)
+                ->bind('pagination', $pagination)
+                ->render();
+
+        $this->_template_content(
+                View::factory('athena/_shared/master_admin')
+                        ->bind('title', $this->page_title)
+                        ->bind('content', $content)
+        );
+    }
+
+    /**
      * action_index
      * 
      * list all user, used for debug purpose,

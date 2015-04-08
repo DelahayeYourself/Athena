@@ -35,5 +35,6 @@ return array
     'Users.lists.etudiant' => 'Étudiants <small>Les comptes étudiants</small>',
     'Groupes.index' => 'Groupes',
     'Groupes.form' => 'Ajouter un nouveau groupe',
-    'Groupes.form.param' => 'Mettre à jour le groupe'
+    'Groupes.form.param' => 'Mettre à jour le groupe',
+    'Users.unlock' => 'Comptes utilisateurs en attente d\'activation'
 );
