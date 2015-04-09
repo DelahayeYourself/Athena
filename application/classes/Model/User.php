@@ -16,8 +16,6 @@ class Model_User extends Model_Auth_User {
      * @var Boolean 
      */
     public $isConfirmed = false;
-    
-    
 
     /**
      * Belongs to entity for Model_User
@@ -27,7 +25,7 @@ class Model_User extends Model_Auth_User {
     protected $_belongs_to = array(
         'parcour' => array('model' => 'Parcour', 'foreign_key' => 'parcour_id'),
     );
-    
+
     /**
      * __construct
      * 
@@ -39,7 +37,7 @@ class Model_User extends Model_Auth_User {
         parent::__construct($id);
         $this->isConfirmed = $this->isConfirmed();
     }
-    
+
     /**
      * override method to return firstname and name of the instance model
      * 
@@ -88,6 +86,26 @@ class Model_User extends Model_Auth_User {
      */
     public static function isUsernameAvailable($username, $user) {
         return (ORM::factory('User')->where('username', '=', $username)->and_where('id', '!=', $user->id)->count_all() == 0) ? true : false;
+    }
+
+    /**
+     * activateArrayAccountId
+     * 
+     * Activate all account by adding the login role for the given id in params
+     * 
+     * @param array $arr_users_id
+     */
+    public static function activateArrayAccountId($arr_users_id) {
+        foreach ($arr_users_id as $user_id) {
+            try {
+                $user = ORM::factory('User', $user_id);
+                if ($user != null) {
+                    $user->add('roles', ORM::factory('role')->where('name', '=', 'login')->find());
+                }
+            } catch (Exception $ex) {
+                
+            }
+        }
     }
 
     /**

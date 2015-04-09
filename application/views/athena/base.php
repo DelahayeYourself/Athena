@@ -39,7 +39,7 @@
     </head>
 
     <body>
-        
+
         <?php echo View::factory('athena/_shared/navbar')->render(); ?>
 
         <div class="container">
@@ -82,6 +82,18 @@
 
                 $(".markdown-editor").markdown({language: 'fr'})
                 $(".select2").select2();
+                $("#table-check #checkall").click(function () {
+                    if ($("#table-check #checkall").is(':checked')) {
+                        $("#table-check input[type=checkbox]").each(function () {
+                            $(this).prop("checked", true);
+                        });
+
+                    } else {
+                        $("#table-check input[type=checkbox]").each(function () {
+                            $(this).prop("checked", false);
+                        });
+                    }
+                });
             });
         </script>
     </body>

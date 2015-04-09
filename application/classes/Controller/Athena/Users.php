@@ -90,6 +90,14 @@ class Controller_Athena_Users extends Controller_Athena_Athena {
      */
     public function action_unlock() {
 
+        if ($this->request->method() == HTTP_Request::POST) {
+            $users_id = $this->request->post('users_id');
+            if ($users_id != null && count($users_id) > 0) {
+                Model_User::activateArrayAccountId($users_id);
+                Notices::add('success', '<strong>Félicitations!</strong> ' . count($users_id) . ' compte(s) activé(s) avec succès.');
+            }
+        }
+
         $active_users_ids = ORM::factory('Role')
                 ->where('name', '=', 'login')
                 ->find()
@@ -115,7 +123,9 @@ class Controller_Athena_Users extends Controller_Athena_Athena {
                 ->offset($pagination->offset)
                 ->find_all();
 
-        $content = View::factory('athena/users/lists')
+
+
+        $content = View::factory('athena/users/lists_validation')
                 ->bind('role_name', $role_name)
                 ->bind('users', $users)
                 ->bind('pagination', $pagination)
