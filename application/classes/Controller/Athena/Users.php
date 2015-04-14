@@ -92,9 +92,19 @@ class Controller_Athena_Users extends Controller_Athena_Athena {
 
         if ($this->request->method() == HTTP_Request::POST) {
             $users_id = $this->request->post('users_id');
-            if ($users_id != null && count($users_id) > 0) {
-                Model_User::activateArrayAccountId($users_id);
-                Notices::add('success', '<strong>Félicitations!</strong> ' . count($users_id) . ' compte(s) activé(s) avec succès.');
+
+            if ($this->request->post('update') != null) {
+                if ($users_id != null && count($users_id) > 0) {
+                    Model_User::activateArrayAccountId($users_id);
+                    Notices::add('success', '<strong>Félicitations!</strong> ' . count($users_id) . ' compte(s) activé(s) avec succès.');
+                }
+            }
+
+            if ($this->request->post('remove') != null) {
+                if ($users_id != null && count($users_id) > 0) {
+                    Model_User::removeArrayAccountId($users_id);
+                    Notices::add('success', '<strong>Félicitations!</strong> ' . count($users_id) . ' compte(s) activé(s) avec succès.');
+                }
             }
         }
 
@@ -243,86 +253,77 @@ class Controller_Athena_Users extends Controller_Athena_Athena {
      * action_update
      */
     public function action_update() {
+        $user = ORM::factory('User', $this->request->param('id'));
 
-        $id = $this->request->param('id');
-        $user = ORM::factory('User', $id);
-
-        $roles = DB::select()
-                ->from('roles')
-                ->order_by('name')
-                ->execute()
-                ->as_array('id', 'name');
-
-        $rolesUser = array();
-        foreach ($user->roles->find_all() as $role) {
-            array_push($rolesUser, $role->id);
-        }
-
-
-        $validation = Validation::factory($this->request->post())
-                ->rule('name', 'not_empty')
-                ->rule('name', 'min_length', array(':value', '3'))
-                ->rule('name', 'max_length', array(':value', '50'))
-                ->rule('firstname', 'not_empty')
-                ->rule('firstname', 'min_length', array(':value', '3'))
-                ->rule('firstname', 'max_length', array(':value', '50'))
-                ->rule('username', 'not_empty')
-                ->rule('username', 'min_length', array(':value', '3'))
-                ->rule('username', 'max_length', array(':value', '50'))
-                ->rule('email', 'not_empty')
-                ->rule('email', 'email')
-        ;
-
+        /**
+         * validation objet used for handling a new password set
+         */
         $validation_password = Validation::factory($this->request->post())
                 ->rule('password', 'not_empty')
                 ->rule('password', 'min_length', array(':value', '4'))
                 ->rule('password', 'max_length', array(':value', '50'))
         ;
 
-        // Handle post 
+        /**
+         * Handle post
+         */
         if ($_POST) {
 
+            /**
+             * if it's an update of the user's password
+             */
             if (isset($_POST['updatePassword'])) {
                 $user->values($this->request->post());
 
                 if ($validation_password->check()) {
                     $user->save();
                     Notices::add('success', '<b>Félicitations!</b> Mot de passe de  ' . $user->firstname . ' ' . $user->name . ' mis à jour avec succès.');
+
                     $this->redirect(Route::get('users')->uri());
                 }
             }
 
+            /**
+             * Here we update the profil
+             */
             if (isset($_POST['updateProfil'])) {
 
                 $user->values($this->request->post());
-                if ($this->request->post('user_roles') != null)
-                    $rolesUser = $this->request->post('user_roles');
 
-                if ($validation->check()) {
-                    //$user->save();
+                try {
+                    $user->clearRoles(array('login'));
+                    $user->setRolesByAccountType($this->request->post('account_type'));
 
-                    foreach ($user->roles->find_all() as $role) {
-                        $user->remove('roles', $role);
-                    }
-
-                    if ($this->request->post('user_roles') != null) {
-                        foreach ($this->request->post('user_roles') as $role_id) {
-                            $user->add('roles', ORM::factory('Role', $role_id));
-                        }
-                    }
                     $user->save();
                     Notices::add('success', '<b>Félicitations!</b> Compte utilisateur mis à jour avec succès.');
                     $this->redirect(Route::get('users')->uri());
+                } catch (ORM_Validation_Exception $e) {
+                    $errors = $e->errors('models');
                 }
 
                 $errors = $validation->errors('athena/account');
             }
         }
 
+        $account_type = null;
+        if ($user->hasRoleByRoleName('etudiant')) {
+            $account_type = 0;
+        }
+        if ($user->hasRoleByRoleName('admin')) {
+            $account_type = 1;
+        }
+
+        $account_types = Model_User::arrayAccountTypesI18n();
+        $parcours = ORM::factory('Parcour')
+                ->order_by('name')
+                ->find_all()
+                ->as_array('id', 'name');
+
         $content = View::factory('athena/users/form')
                 ->bind('user', $user)
-                ->bind('rolesUser', $rolesUser)
-                ->bind('roles', $roles)
+                ->bind('parcours', $parcours)
+                ->bind('account_types', $account_types)
+                ->bind('account_type', $account_type)
                 ->bind('errors', $errors)
                 ->render();
 
@@ -339,13 +340,6 @@ class Controller_Athena_Users extends Controller_Athena_Athena {
     public function action_delete() {
         $id = $this->request->param('id');
         $user = ORM::factory('User', $id);
-        $user_admin = ORM::factory('role')
-                        ->where('name', '=', 'admin')
-                        ->find()
-                        ->users
-                        ->order_by('name')
-                        ->find_all()[0];
-
         $user->delete();
 
         Notices::add('success', '<b>Félicitations!</b> Compte utilisateur supprimé avec succès.');
@@ -372,6 +366,22 @@ class Controller_Athena_Users extends Controller_Athena_Athena {
         }
 
         $this->redirect($this->request->referrer());
+    }
+
+    /**
+     * Simple method for redirecting to correct action of users.
+     * 
+     * @param int $account_type
+     */
+    protected function redirectToCorrectAction($account_type) {
+        switch ($account_type) {
+            case 0: $this->redirect(Route::get('users')->uri(array('action' => 'lists', 'id' => 'etudiant')));
+                break;
+            case 1: $this->redirect(Route::get('users')->uri(array('action' => 'lists', 'id' => 'admin')));
+                break;
+            default : $this->redirect(Route::get('users')->uri(array('action' => 'lists', 'id' => 'etudiant')));
+                break;
+        }
     }
 
 }

@@ -11,6 +11,15 @@ defined('SYSPATH') or die('No direct script access.');
 class Model_User extends Model_Auth_User {
 
     /**
+     * Array to store account type
+     * @var array 
+     */
+    protected static $assert_account_types = array(
+        0 => 'account.type.student',
+        1 => 'account.type.admin',
+    );
+
+    /**
      * Flags that indicate if the user is confirmed or not
      * 
      * @var Boolean 
@@ -25,6 +34,13 @@ class Model_User extends Model_Auth_User {
     protected $_belongs_to = array(
         'parcour' => array('model' => 'Parcour', 'foreign_key' => 'parcour_id'),
     );
+
+    /**
+     * Which entities should be loaded with an instance of Model_User
+     * 
+     * @var array
+     */
+    protected $_load_with = array('roles');
 
     /**
      * __construct
@@ -58,11 +74,63 @@ class Model_User extends Model_Auth_User {
     }
 
     /**
-     * Which entities should be loaded with an instance of Model_User
+     * clearRoles
      * 
-     * @var array
+     * Method for clearing (removing) all roles that a user have,
+     * You can specify which roles you don't won't to remove for this user
+     * 
+     * @param array $except
      */
-    protected $_load_with = array('roles');
+    public function clearRoles($except = array()) {
+        foreach ($this->roles->find_all() as $role) {
+            if (!in_array($role->name, $except)) {
+                $this->remove('roles', $role);
+            }
+        }
+    }
+
+    /**
+     * addRoleByRoleName
+     * 
+     * Method for adding role by role name to the user instance
+     * 
+     * @param string $role_name
+     */
+    public function addRoleByRoleName($role_name) {
+        try {
+            $this->add('roles', ORM::factory('Role')->where('name', '=', $role_name)->find());
+        } catch (Exception $ex) {
+            Notices::add('warning', __('Users.account.roles.add.generic.error'));
+        }
+    }
+
+    /**
+     * hasRoleByRoleName
+     * 
+     * Method to check if user instance have the given rol in param
+     * 
+     * @param string $role_name
+     * @return boolean
+     */
+    public function hasRoleByRoleName($role_name) {
+        return $this->has('roles', ORM::factory('Role')->where('name', '=', $role_name)->find());
+    }
+
+    /**
+     * setRolesByAccountType
+     * 
+     * Method for setting roles to a particular account type given in parameters
+     * 
+     * @param int $account_type
+     */
+    public function setRolesByAccountType($account_type) {
+        switch ($account_type) {
+            case 0: $this->addRoleByRoleName('etudiant');
+                break;
+            case 1: $this->addRoleByRoleName('admin');
+                break;
+        }
+    }
 
     /**
      * Method for validating user's mail,
@@ -106,6 +174,41 @@ class Model_User extends Model_Auth_User {
                 
             }
         }
+    }
+
+    /**
+     * removeArrayAccountId
+     * 
+     * Remove all account for the given ids in params
+     * 
+     * @param array $arr_users_id
+     */
+    public static function removeArrayAccountId($arr_users_id) {
+        foreach ($arr_users_id as $user_id) {
+            try {
+                $user = ORM::factory('User', $user_id);
+                if ($user != null) {
+                    $user->delete();
+                }
+            } catch (Exception $ex) {
+                
+            }
+        }
+    }
+
+    /**
+     * arrayAccountTypesI18n
+     * 
+     * Static method for returning translating account type in an array 
+     * 
+     * @return array
+     */
+    public static function arrayAccountTypesI18n() {
+        $arr = array();
+        foreach (Model_User::$assert_account_types as $index => $type_i18n) {
+            $arr[$index] = __($type_i18n);
+        }
+        return $arr;
     }
 
     /**

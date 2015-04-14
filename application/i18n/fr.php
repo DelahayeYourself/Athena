@@ -36,5 +36,8 @@ return array
     'Groupes.index' => 'Groupes',
     'Groupes.form' => 'Ajouter un nouveau groupe',
     'Groupes.form.param' => 'Mettre à jour le groupe',
-    'Users.unlock' => 'Comptes utilisateurs en attente d\'activation'
+    'Users.unlock' => 'Comptes utilisateurs en attente d\'activation',
+    'Users.update.param' => 'Mettre à jour le compte utilisateur',
+    'account.type.student' => 'Compte étudiant',
+    'account.type.admin' => 'Compte administrateur',
 );

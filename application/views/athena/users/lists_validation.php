@@ -38,7 +38,8 @@
         </table>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-success btn-xs" value="save" name="update">Activer les comptes</button>
+            <button type="submit" class="btn btn-success btn-xs" value="update" name="update">Activer les comptes</button>
+            <button type="submit" class="btn btn-danger btn-xs user-confirm-action-delete" value="remove" name="remove">Supprimer les comptes</button>
         </div>
 
         <?php echo Form::close(); ?>
