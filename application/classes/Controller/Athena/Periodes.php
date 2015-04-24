@@ -71,6 +71,10 @@ class Controller_Athena_Periodes extends Controller_Athena_Athena {
 
             try {
                 $periode->save();
+
+                $periode->clearParcours();
+                $periode->setParcours($this->request->post('parcours'));
+
                 if ($id == null) {
                     Notices::add('success', '<b>Félicitations!</b> Période &laquo; ' . $periode->name . ' &raquo; ajouté avec succès.');
                 } else {
@@ -83,8 +87,11 @@ class Controller_Athena_Periodes extends Controller_Athena_Athena {
             }
         }
 
+        $parcours = ORM::factory('Parcour')->order_by('name')->find_all()->as_array('id', 'name');
+
         $content = View::factory('athena/periodes/form')
                 ->bind('periode', $periode)
+                ->bind('parcours', $parcours)
                 ->bind('errors', $errors)
                 ->render();
 

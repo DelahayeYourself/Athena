@@ -20,6 +20,15 @@ class Model_Parcour extends ORM {
     );
 
     /**
+     * Has many entities for Model_Parcour
+     * 
+     * @var array 
+     */
+    protected $_has_many = array(
+        'groupes' => array('model' => 'Groupe', 'through' => 'groupes_parcours'),
+    );
+
+    /**
      * Which entities should be loaded with an instance of Model_Parcour
      * 
      * @var array
@@ -35,7 +44,7 @@ class Model_Parcour extends ORM {
     public function __toString() {
         return $this->name;
     }
-    
+
     /**
      * rules
      * 

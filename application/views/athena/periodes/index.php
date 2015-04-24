@@ -27,6 +27,12 @@
                                 <dd><?php echo $periode->date_end; ?></dd>
                                 <dt>Plage d'inscriptions</dt>
                                 <dd><?php echo $periode->date_begin_choise; ?> - <?php echo $periode->date_end_choise; ?></dd>
+                                <dt>Parcours</dt>
+                                <dd>
+                                    <?php foreach ($periode->parcours->find_all() as $parcour): ?>
+                                        <span class="label label-info"><?php echo $parcour; ?></span>
+                                    <?php endforeach; ?>
+                                </dd>
                             </dl>
                         </div>
                         <div class="panel-footer">

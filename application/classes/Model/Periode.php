@@ -20,6 +20,51 @@ class Model_Periode extends ORM {
     protected $_validation_required = TRUE;
 
     /**
+     * Has Many entity for Model_Groupe
+     * 
+     * @var array 
+     */
+    protected $_has_many = array(
+        'parcours' => array('model' => 'Parcour', 'through' => 'parcours_periodes'),
+    );
+
+    /**
+     * clearParcours
+     * 
+     * Method to clear all parcours entitie bind to this model
+     */
+    public function clearParcours() {
+        $arr_parcours = $this->parcours->find_all()->as_array('id', 'id');
+        if (!empty($arr_parcours)) {
+            $this->remove('parcours', $arr_parcours);
+        }
+    }
+
+    /**
+     * setParcours
+     * 
+     * Method to set parcours entities bind to this model with the given array of ids
+     * 
+     * @param array $arr_ids_parcours
+     */
+    public function setParcours($arr_ids_parcours) {
+        if (!empty($arr_ids_parcours)) {
+            $this->add('parcours', $arr_ids_parcours);
+        }
+    }
+    
+    /**
+     * __toString
+     * 
+     * Override method toString
+     * 
+     * @return String
+     */
+    public function __toString() {
+        return $this->name;
+    }
+
+        /**
      * rules
      * 
      * return array rules for this model
@@ -87,7 +132,6 @@ class Model_Periode extends ORM {
         return Athena_Date::fromFrToTimestamp($date) > Athena_Date::fromFrToTimestamp($model->date_begin);
     }
 
-    
     /**
      * Validation method to check if the end_subscribe date is superior to the begin_subscribe date
      * 

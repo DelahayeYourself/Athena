@@ -40,4 +40,8 @@ return array
     'Users.update.param' => 'Mettre à jour le compte utilisateur',
     'account.type.student' => 'Compte étudiant',
     'account.type.admin' => 'Compte administrateur',
+    'welcome.title' => 'Bienvenue dans ' . APP_NAME,
+    'welcome.text.student' => 'Insert a cool text for student dashboard',
+    'student.choise.title' => 'Faire vos choix de modules optionnelles', 
+    'student.actual.parcour' => 'Vous êtes actuellement inscrit en : ',
 );

@@ -17,6 +17,12 @@
                     <input id="name" type="text" name="name" placeholder="Nom" class="form-control" value="<?php echo $periode->name; ?>">
                 </div>
 
+                <div class="form-group <?php echo Athena_Form::hasError($errors, 'parcours'); ?>">
+                    <label for="parcours" class="control-label">Parcours liés à cette période</label>
+                    <?php echo Athena_Form::renderErrorMessage($errors, 'parcours'); ?>
+                    <?php echo Form::select('parcours[]', $parcours, $periode->parcours->find_all()->as_array('id', 'id'), array('id' => 'parcours', 'class' => 'form-control')); ?>
+                </div>
+
                 <div class="form-group <?php echo Athena_Form::hasError($errors, 'number_choise'); ?>">
                     <label for="number_choise" class="control-label">Nombre de modules optionnelles à choisir</label>
                     <?php echo Athena_Form::renderErrorMessage($errors, 'number_choise'); ?>
