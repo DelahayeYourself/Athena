@@ -55,6 +55,18 @@ class Model_Periode extends ORM {
     }
 
     /**
+     * isEnlistmentOpen
+     * 
+     * Method to check if enlistment is actually opened for this Model_Periode instance
+     * 
+     * @return boolean
+     */
+    public function isEnlistmentOpen() {
+        $current_timestamp = time();
+        return ($current_timestamp > $this->date_begin_choise && $current_timestamp < $this->date_end_choise) ? true : false;
+    }
+
+    /**
      * __toString
      * 
      * Override method toString

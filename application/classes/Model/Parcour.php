@@ -64,6 +64,23 @@ class Model_Parcour extends ORM {
     }
 
     /**
+     * getGroupesForPeriodeAsIdArray
+     * 
+     * Method to return groupes ids bind to this parcour model and the given periode in parameters
+     * 
+     * @param type $periode
+     * @return array
+     */
+    public function getGroupesForPeriodeAsIdArray($periode) {
+        $groupes = $this->getGroupesForPeriode($periode);
+        if (!is_array($groupes)) {
+            return $groupes->as_array('id', 'id');
+        } else {
+            return array();
+        }
+    }
+
+    /**
      * rules
      * 
      * return array rules for this model

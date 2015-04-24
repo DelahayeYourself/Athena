@@ -42,6 +42,9 @@ return array
     'account.type.admin' => 'Compte administrateur',
     'welcome.title' => 'Bienvenue dans ' . APP_NAME,
     'welcome.text.student' => 'Insert a cool text for student dashboard',
-    'student.choise.title' => 'Faire vos choix de modules optionnelles', 
+    'student.choise.title' => 'Faire vos choix d\'UEs optionnelles', 
     'student.actual.parcour' => 'Vous êtes actuellement inscrit en : ',
+    'periode.enlistment.close.title' => 'Information',
+    'periode.enlistment.close.text' => 'Plage d\'inscription cloturée pour cette période.',
+    'periode.current.enlistement' => 'Vos UEs choisies pour cette période'
 );

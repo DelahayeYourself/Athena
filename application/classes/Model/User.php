@@ -36,6 +36,17 @@ class Model_User extends Model_Auth_User {
     );
 
     /**
+     * A user has many tokens, roles and groupes
+     *
+     * @var array Relationhips
+     */
+    protected $_has_many = array(
+        'user_tokens' => array('model' => 'User_Token'),
+        'roles' => array('model' => 'Role', 'through' => 'roles_users'),
+        'groupes' => array('model' => 'Groupe', 'through' => 'groupes_users'),
+    );
+
+    /**
      * Which entities should be loaded with an instance of Model_User
      * 
      * @var array
@@ -52,6 +63,22 @@ class Model_User extends Model_Auth_User {
     public function __construct($id = NULL) {
         parent::__construct($id);
         $this->isConfirmed = $this->isConfirmed();
+    }
+    
+    /**
+     * getGroupesFromGroupesIds
+     * 
+     * Method to return enlist groupes of the current Model_User instance that appear in a given array
+     * 
+     * @param arrray $arr_ids_groupes
+     * @return array
+     */
+    public function getGroupesFromGroupesIds($arr_ids_groupes){
+        if(empty($arr_ids_groupes)){
+            return array();
+        }else{
+            return $this->groupes->where('groupe.id', 'IN', $arr_ids_groupes)->find_all();
+        }
     }
 
     /**
