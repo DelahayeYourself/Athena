@@ -26,6 +26,7 @@ class Model_Periode extends ORM {
      */
     protected $_has_many = array(
         'parcours' => array('model' => 'Parcour', 'through' => 'parcours_periodes'),
+        'modules' => array('model' => 'Module', 'foreign_key' => 'periode_id'),
     );
 
     /**
@@ -52,7 +53,7 @@ class Model_Periode extends ORM {
             $this->add('parcours', $arr_ids_parcours);
         }
     }
-    
+
     /**
      * __toString
      * 
@@ -64,7 +65,7 @@ class Model_Periode extends ORM {
         return $this->name;
     }
 
-        /**
+    /**
      * rules
      * 
      * return array rules for this model

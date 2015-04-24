@@ -13,13 +13,14 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
 
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-database"></i> Configuration <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <?php echo View::factory('athena/_shared/configuration_nav')->render(); ?>
-                    </ul>
-                </li>
+                <?php if (Athena_Auth::isAuthUserAdminAccount()): ?>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-database"></i> Configuration <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <?php echo View::factory('athena/_shared/configuration_nav')->render(); ?>
+                        </ul>
+                    </li>
+                <?php endif; ?>
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
